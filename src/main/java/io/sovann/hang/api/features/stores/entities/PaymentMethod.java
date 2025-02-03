@@ -8,7 +8,6 @@ import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @RedisHash("PaymentMethod")

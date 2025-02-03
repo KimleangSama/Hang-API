@@ -2,7 +2,10 @@ package io.sovann.hang.api.features.foods.entities;
 
 import io.sovann.hang.api.features.foods.enums.SpicyLevel;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

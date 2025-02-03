@@ -92,7 +92,7 @@ public class StoreController {
             @CurrentUser CustomUserDetails user,
             @PathVariable UUID id,
             @RequestBody UpdateStoreRequest request
-            ) {
+    ) {
         SoftEntityDeletable.throwErrorIfSoftDeleted(user.getUser());
         return callback.execute(() -> storeService.updateStore(user.getUser(), id, request),
                 "Store failed to list",

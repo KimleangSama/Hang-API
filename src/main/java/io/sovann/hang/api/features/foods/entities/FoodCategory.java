@@ -1,6 +1,5 @@
 package io.sovann.hang.api.features.foods.entities;
 
-import io.sovann.hang.api.features.foods.enums.SpicyLevel;
 import io.sovann.hang.api.features.stores.entities.Store;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
 import jakarta.persistence.*;
@@ -26,6 +25,8 @@ public class FoodCategory extends BaseEntityAudit {
     private String name;
     private String description;
     private String icon;
+    private boolean isHidden = false;
+    private boolean isAvailable = true;
 
     @OneToMany(mappedBy = "category")
     private List<Food> foods;

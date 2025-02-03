@@ -2,20 +2,35 @@ package io.sovann.hang.api.features.users.services;
 
 import io.sovann.hang.api.exceptions.ResourceForbiddenException;
 import io.sovann.hang.api.exceptions.ResourceNotFoundException;
-import io.sovann.hang.api.features.users.entities.*;
+import io.sovann.hang.api.features.users.entities.Group;
+import io.sovann.hang.api.features.users.entities.GroupMember;
+import io.sovann.hang.api.features.users.entities.Role;
+import io.sovann.hang.api.features.users.entities.User;
 import io.sovann.hang.api.features.users.enums.AuthRole;
-import io.sovann.hang.api.features.users.payloads.request.*;
-import io.sovann.hang.api.features.users.payloads.response.*;
-import io.sovann.hang.api.features.users.repos.*;
+import io.sovann.hang.api.features.users.payloads.request.AddOrRemoveGroupMemberRequest;
+import io.sovann.hang.api.features.users.payloads.request.CreateGroupRequest;
+import io.sovann.hang.api.features.users.payloads.request.PromoteDemoteRequest;
+import io.sovann.hang.api.features.users.payloads.request.RegisterToGroupRequest;
+import io.sovann.hang.api.features.users.payloads.response.GroupMemberResponse;
+import io.sovann.hang.api.features.users.payloads.response.GroupResponse;
+import io.sovann.hang.api.features.users.payloads.response.UserResponse;
+import io.sovann.hang.api.features.users.repos.GroupMemberRepository;
+import io.sovann.hang.api.features.users.repos.GroupRepository;
+import io.sovann.hang.api.features.users.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j

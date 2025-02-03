@@ -1,6 +1,5 @@
 package io.sovann.hang.api.features.foods.entities;
 
-import io.sovann.hang.api.features.foods.enums.SpicyLevel;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
 import io.sovann.hang.api.features.users.entities.User;
 import jakarta.persistence.Entity;

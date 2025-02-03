@@ -1,8 +1,8 @@
 package io.sovann.hang.api.exceptions;
 
-import lombok.*;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

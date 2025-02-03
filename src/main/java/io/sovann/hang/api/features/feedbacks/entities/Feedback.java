@@ -1,8 +1,6 @@
 package io.sovann.hang.api.features.feedbacks.entities;
 
 import io.sovann.hang.api.features.feedbacks.enums.Rating;
-import io.sovann.hang.api.features.orders.entities.OrderFood;
-import io.sovann.hang.api.features.orders.enums.OrderStatus;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,8 +9,6 @@ import lombok.ToString;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serial;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RedisHash("Feedback")
 @Getter

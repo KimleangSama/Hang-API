@@ -7,4 +7,5 @@ public class APIURLs {
     public static final String USER = BASE + "/users";
     public static final String ROLE = BASE + "/roles";
     public static final String GROUP = BASE + "/groups";
+    public static final String CATEGORY = BASE + "/categories";
 }

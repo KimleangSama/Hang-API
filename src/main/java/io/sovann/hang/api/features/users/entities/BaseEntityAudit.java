@@ -20,8 +20,6 @@ public abstract class BaseEntityAudit extends BaseEntity implements Serializable
     private UUID createdBy;
     @Column(name = "updated_by")
     private UUID updatedBy;
-    @Column(name = "deleted_by")
-    private UUID deletedBy;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -29,8 +27,6 @@ public abstract class BaseEntityAudit extends BaseEntity implements Serializable
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
 
     @Override
     public boolean equals(Object o) {
@@ -40,22 +36,19 @@ public abstract class BaseEntityAudit extends BaseEntity implements Serializable
         return createdBy.equals(that.createdBy) &&
                 updatedBy.equals(that.updatedBy) &&
                 createdAt.equals(that.createdAt) &&
-                updatedAt.equals(that.updatedAt) &&
-                deletedBy.equals(that.deletedBy) &&
-                deletedAt.equals(that.deletedAt);
+                updatedAt.equals(that.updatedAt);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(),
-                createdBy, updatedBy, createdAt, updatedAt, deletedBy, deletedAt);
+                createdBy, updatedBy, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
         return "BaseEntityAudit{" + "createdBy='" + createdBy + ", updatedBy='" +
                 updatedBy + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt +
-                ", deletedBy='" + deletedBy + ", deletedAt=" + deletedAt +
                 "}" + super.toString();
     }
 }

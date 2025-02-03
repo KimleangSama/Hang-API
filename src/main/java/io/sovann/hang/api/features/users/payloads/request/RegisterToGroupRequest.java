@@ -2,7 +2,6 @@ package io.sovann.hang.api.features.users.payloads.request;
 
 import io.sovann.hang.api.features.users.entities.Role;
 import io.sovann.hang.api.features.users.entities.User;
-import io.sovann.hang.api.features.users.enums.AuthRole;
 import io.sovann.hang.api.features.users.enums.AuthStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

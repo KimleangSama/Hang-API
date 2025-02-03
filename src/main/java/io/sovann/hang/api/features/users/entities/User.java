@@ -1,6 +1,7 @@
 package io.sovann.hang.api.features.users.entities;
 
 import com.redis.om.spring.annotations.Indexed;
+import io.sovann.hang.api.features.commons.entities.EntityDeletable;
 import io.sovann.hang.api.features.users.enums.AuthProvider;
 import io.sovann.hang.api.features.users.enums.AuthStatus;
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @RedisHash("User")
 @Getter
@@ -25,7 +27,7 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"phone"}),
         @UniqueConstraint(columnNames = {"email"})
 })
-public class User extends BaseEntityAudit {
+public class User extends BaseEntityAudit implements EntityDeletable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -67,4 +69,17 @@ public class User extends BaseEntityAudit {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<GroupMember> groupMembers = new HashSet<>();
+
+    private LocalDateTime deletedAt;
+    private UUID deletedBy;
+
+    @Override
+    public UUID getDeletedBy() {
+        return deletedBy;
+    }
+
+    @Override
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
 }

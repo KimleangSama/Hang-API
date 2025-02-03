@@ -5,5 +5,6 @@ import java.util.UUID;
 
 public interface EntityDeletable {
     UUID getDeletedBy();
+
     LocalDateTime getDeletedAt();
 }

@@ -1,8 +1,6 @@
 package io.sovann.hang.api.features.carts.entities;
 
 import io.sovann.hang.api.features.foods.entities.Food;
-import io.sovann.hang.api.features.foods.entities.FoodCategory;
-import io.sovann.hang.api.features.foods.enums.SpicyLevel;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

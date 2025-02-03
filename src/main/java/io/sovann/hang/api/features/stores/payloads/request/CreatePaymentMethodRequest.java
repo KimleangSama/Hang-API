@@ -1,7 +1,6 @@
 package io.sovann.hang.api.features.stores.payloads.request;
 
 import io.sovann.hang.api.configs.MMConfig;
-import io.sovann.hang.api.features.stores.entities.OperatingHour;
 import io.sovann.hang.api.features.stores.entities.PaymentMethod;
 import io.sovann.hang.api.features.stores.entities.Store;
 import lombok.Getter;

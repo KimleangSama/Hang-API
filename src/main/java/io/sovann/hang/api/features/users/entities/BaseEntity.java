@@ -1,7 +1,6 @@
 package io.sovann.hang.api.features.users.entities;
 
 import com.redis.om.spring.annotations.Indexed;
-import io.sovann.hang.api.features.commons.entities.EntityDeletable;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable, EntityDeletable {
+public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
