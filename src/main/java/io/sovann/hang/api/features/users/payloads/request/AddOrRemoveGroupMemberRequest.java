@@ -12,4 +12,5 @@ import java.util.UUID;
 public class AddOrRemoveGroupMemberRequest {
     private UUID groupId;
     private UUID userId;
+    private String username;
 }

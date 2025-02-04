@@ -14,6 +14,7 @@ public class FoodResponse {
     private double discount;
     private String imageUrl;
     private boolean isAvailable;
+    private boolean isHidden;
     private String spicyLevel;
     private String ingredients;
     private String allergens;
@@ -29,6 +30,7 @@ public class FoodResponse {
         response.setDiscount(food.getDiscount());
         response.setImageUrl(food.getImageUrl());
         response.setAvailable(food.getIsAvailable());
+        response.setHidden(food.getIsHidden());
         response.setSpicyLevel(food.getSpicyLevel().name());
         response.setIngredients(food.getIngredients());
         response.setAllergens(food.getAllergens());

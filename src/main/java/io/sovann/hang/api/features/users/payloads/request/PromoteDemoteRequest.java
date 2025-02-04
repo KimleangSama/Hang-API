@@ -13,5 +13,6 @@ import java.util.UUID;
 public class PromoteDemoteRequest {
     private UUID groupId;
     private UUID userId;
+    private String username;
     private List<UUID> roles;
 }

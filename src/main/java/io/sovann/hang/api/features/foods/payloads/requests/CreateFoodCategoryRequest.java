@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @ToString
@@ -16,7 +14,6 @@ public class CreateFoodCategoryRequest {
     private String icon;
     private boolean isHidden = false;
     private boolean isAvailable = true;
-    private UUID storeId;
 
     public static FoodCategory fromRequest(CreateFoodCategoryRequest request) {
         FoodCategory foodCategory = new FoodCategory();

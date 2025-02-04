@@ -19,6 +19,7 @@ import io.sovann.hang.api.features.users.repos.GroupRepository;
 import io.sovann.hang.api.features.users.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -73,6 +74,7 @@ public class GroupServiceImpl {
         return groupMembers.map(member -> UserResponse.fromEntity(member.getUser())).toList();
     }
 
+    @CacheEvict(value = "users", key = "#request.username")
     public GroupResponse promoteOrDemoteUser(User user, PromoteDemoteRequest request) {
         Group group = getGroupById(request.getGroupId());
         User userToPromote = getUserById(request.getUserId());
@@ -92,6 +94,7 @@ public class GroupServiceImpl {
         return GroupResponse.fromEntity(group);
     }
 
+    @CacheEvict(value = "users", key = "#request.username")
     public GroupMemberResponse removeUser(User user, AddOrRemoveGroupMemberRequest request) {
         Group group = getGroupById(request.getGroupId());
         User userToRemove = getUserById(request.getUserId());
@@ -104,13 +107,15 @@ public class GroupServiceImpl {
         return GroupMemberResponse.fromEntities(userToRemove, group);
     }
 
+    @CacheEvict(value = "users", key = "#request.username")
     public GroupMemberResponse addUser(User user, AddOrRemoveGroupMemberRequest request) {
         Group group = getGroupById(request.getGroupId());
         User userToAdd = getUserById(request.getUserId());
-
         return addGroupMember(group, userToAdd);
     }
 
+    @Transactional
+    @CacheEvict(value = "users", key = "#request.username")
     public GroupMemberResponse registerUser(User user, RegisterToGroupRequest request) {
         Group group = getGroupById(request.getGroupId());
         List<Role> roles = roleServiceImpl.findByIds(request.getRoles());

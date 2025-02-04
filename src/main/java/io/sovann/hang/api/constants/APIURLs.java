@@ -10,4 +10,5 @@ public class APIURLs {
     public static final String CATEGORY = BASE + "/categories";
     public static final String FILE = BASE + "/files";
     public static final String FOOD = BASE + "/foods";
+    public static final String FAVORITE = BASE + "/favorites";
 }

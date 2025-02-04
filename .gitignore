@@ -33,5 +33,6 @@ build/
 .vscode/
 
 ### Custom ###
+uploads/
 data/
 .DS_Store

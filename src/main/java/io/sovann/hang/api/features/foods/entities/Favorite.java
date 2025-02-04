@@ -18,7 +18,9 @@ import java.io.Serial;
 @Setter
 @ToString
 @Entity
-@Table(name = "favorites")
+@Table(name = "favorites", uniqueConstraints = {
+        @jakarta.persistence.UniqueConstraint(columnNames = {"user_id", "food_id"})
+})
 public class Favorite extends BaseEntityAudit {
     @Serial
     private final static long serialVersionUID = 1L;

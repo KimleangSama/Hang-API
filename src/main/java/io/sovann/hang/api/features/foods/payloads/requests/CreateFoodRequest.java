@@ -15,6 +15,7 @@ public class CreateFoodRequest {
     private double discount;
     private String imageUrl;
     private boolean isAvailable;
+    private boolean isHidden;
     private SpicyLevel spicyLevel;
     private String ingredients;
     private String allergens;
@@ -31,6 +32,7 @@ public class CreateFoodRequest {
         food.setDiscount(request.getDiscount());
         food.setImageUrl(request.getImageUrl());
         food.setIsAvailable(request.isAvailable());
+        food.setIsHidden(request.isHidden());
         food.setSpicyLevel(request.getSpicyLevel());
         food.setIngredients(request.getIngredients());
         food.setAllergens(request.getAllergens());

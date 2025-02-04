@@ -31,6 +31,7 @@ public class Food extends BaseEntityAudit {
 
     private String imageUrl;
     private Boolean isAvailable;
+    private Boolean isHidden = false;
     private SpicyLevel spicyLevel;
     private String ingredients;
     private String allergens;

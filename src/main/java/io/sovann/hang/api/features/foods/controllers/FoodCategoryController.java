@@ -4,9 +4,10 @@ import io.sovann.hang.api.annotations.CurrentUser;
 import io.sovann.hang.api.constants.APIURLs;
 import io.sovann.hang.api.features.commons.controllers.ControllerServiceCallback;
 import io.sovann.hang.api.features.commons.payloads.BaseResponse;
+import io.sovann.hang.api.features.commons.payloads.PageMeta;
 import io.sovann.hang.api.features.foods.payloads.requests.CreateFoodCategoryRequest;
-import io.sovann.hang.api.features.foods.payloads.responses.FoodCategoryResponse;
 import io.sovann.hang.api.features.foods.payloads.requests.FoodCategoryToggleRequest;
+import io.sovann.hang.api.features.foods.payloads.responses.FoodCategoryResponse;
 import io.sovann.hang.api.features.foods.services.FoodCategoryServiceImpl;
 import io.sovann.hang.api.features.users.securities.CustomUserDetails;
 import io.sovann.hang.api.utils.SoftEntityDeletable;
@@ -15,7 +16,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(APIURLs.CATEGORY)
@@ -37,15 +37,21 @@ public class FoodCategoryController {
     }
 
     @GetMapping("/list")
-    public BaseResponse<List<FoodCategoryResponse>> listFoodCategory(@RequestParam("storeId") UUID storeId) {
-        return callback.execute(() -> foodCategoryService.listFoodCategory(storeId),
+    public BaseResponse<List<FoodCategoryResponse>> listFoodCategories(
+            @CurrentUser CustomUserDetails user,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        SoftEntityDeletable.throwErrorIfSoftDeleted(user.getUser());
+        PageMeta pageMeta = new PageMeta(page, size, foodCategoryService.count());
+        return callback.execute(() -> foodCategoryService.listFoodCategories(user.getUser(), page, size),
                 "Food category failed to list",
-                null);
+                pageMeta);
     }
 
-    @PatchMapping("/toggle-hidden")
+    @PatchMapping("/toggle-visibility")
     @PreAuthorize("hasAnyRole('admin', 'manager')")
-    public BaseResponse<FoodCategoryResponse> hideFoodCategory(
+    public BaseResponse<FoodCategoryResponse> toggleFoodCategoryVisibility(
             @CurrentUser CustomUserDetails user,
             @RequestBody FoodCategoryToggleRequest request
     ) {
@@ -57,7 +63,7 @@ public class FoodCategoryController {
 
     @PatchMapping("/toggle-availability")
     @PreAuthorize("hasAnyRole('admin', 'manager')")
-    public BaseResponse<FoodCategoryResponse> availabilityFoodCategory(
+    public BaseResponse<FoodCategoryResponse> toggleFoodCategoryAvailability(
             @CurrentUser CustomUserDetails user,
             @RequestBody FoodCategoryToggleRequest request
     ) {

@@ -1,6 +1,5 @@
 package io.sovann.hang.api.features.tables.entities;
 
-import io.sovann.hang.api.features.stores.entities.Store;
 import io.sovann.hang.api.features.tables.enums.TableStatus;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
 import jakarta.persistence.*;
@@ -28,14 +27,12 @@ public class Table extends BaseEntityAudit {
     private String tableNumber;
     @Column
     private String description;
+    private double basePrice;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TableStatus status;
     @Column
     private int capacity;
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
 
     @Column
     private Boolean isGrouped = false;

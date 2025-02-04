@@ -1,8 +1,10 @@
 package io.sovann.hang.api.features.foods.entities;
 
-import io.sovann.hang.api.features.stores.entities.Store;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,8 +32,4 @@ public class FoodCategory extends BaseEntityAudit {
 
     @OneToMany(mappedBy = "category")
     private List<Food> foods;
-
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
 }
