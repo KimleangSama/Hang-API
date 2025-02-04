@@ -77,4 +77,4 @@ jobs:
           fail-emoji: ':red_circle:'
 
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v2.3.4
+        uses: coverallsapp/github-action@v2.3.6
