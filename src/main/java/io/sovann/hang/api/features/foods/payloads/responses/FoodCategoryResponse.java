@@ -1,4 +1,4 @@
-package io.sovann.hang.api.features.foods.payloads;
+package io.sovann.hang.api.features.foods.payloads.responses;
 
 import io.sovann.hang.api.features.foods.entities.FoodCategory;
 import lombok.Getter;
