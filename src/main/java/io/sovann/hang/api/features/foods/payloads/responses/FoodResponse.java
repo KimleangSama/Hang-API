@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 public class FoodResponse {
+    private UUID id;
     private String name;
     private String description;
     private double price;
@@ -21,9 +22,11 @@ public class FoodResponse {
     private String cookingTime;
     private String servingSize;
     private String calories;
+    private boolean isFavorite;
 
     public static FoodResponse fromEntity(Food food) {
         FoodResponse response = new FoodResponse();
+        response.setId(food.getId());
         response.setName(food.getName());
         response.setDescription(food.getDescription());
         response.setPrice(food.getPrice());
@@ -40,7 +43,16 @@ public class FoodResponse {
         return response;
     }
 
-    public static List<FoodResponse> fromEntities(List<Food> foods) {
-        return foods.stream().map(FoodResponse::fromEntity).toList();
+    public static List<FoodResponse> fromEntities(List<Food> foods, List<FavoriteResponse> favorites) {
+        List<FoodResponse> responses = new ArrayList<>();
+        for (Food food : foods) {
+            FoodResponse response = fromEntity(food);
+            response.setFavorite(
+                    favorites
+                            .stream()
+                            .anyMatch(favorite -> favorite.getFoodId().equals(food.getId())));
+            responses.add(response);
+        }
+        return responses;
     }
 }

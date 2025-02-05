@@ -9,6 +9,7 @@ import io.sovann.hang.api.features.foods.payloads.requests.CreateFoodCategoryReq
 import io.sovann.hang.api.features.foods.payloads.requests.FoodCategoryToggleRequest;
 import io.sovann.hang.api.features.foods.payloads.responses.FoodCategoryResponse;
 import io.sovann.hang.api.features.foods.services.FoodCategoryServiceImpl;
+import io.sovann.hang.api.features.users.entities.*;
 import io.sovann.hang.api.features.users.securities.CustomUserDetails;
 import io.sovann.hang.api.utils.SoftEntityDeletable;
 import lombok.RequiredArgsConstructor;
@@ -42,9 +43,9 @@ public class FoodCategoryController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        SoftEntityDeletable.throwErrorIfSoftDeleted(user.getUser());
+        User authUser = user == null ? null : user.getUser();
         PageMeta pageMeta = new PageMeta(page, size, foodCategoryService.count());
-        return callback.execute(() -> foodCategoryService.listFoodCategories(user.getUser(), page, size),
+        return callback.execute(() -> foodCategoryService.listFoodCategories(authUser, page, size),
                 "Food category failed to list",
                 pageMeta);
     }

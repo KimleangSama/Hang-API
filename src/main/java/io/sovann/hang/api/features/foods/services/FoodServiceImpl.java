@@ -1,31 +1,22 @@
 package io.sovann.hang.api.features.foods.services;
 
-import io.sovann.hang.api.features.foods.entities.Food;
-import io.sovann.hang.api.features.foods.entities.FoodCategory;
-import io.sovann.hang.api.features.foods.payloads.requests.CreateFoodRequest;
-import io.sovann.hang.api.features.foods.payloads.requests.FoodToggleRequest;
-import io.sovann.hang.api.features.foods.payloads.responses.FoodCategoryResponse;
-import io.sovann.hang.api.features.foods.payloads.responses.FoodResponse;
-import io.sovann.hang.api.features.foods.repos.FoodCategoryRepository;
-import io.sovann.hang.api.features.foods.repos.FoodRepository;
-import io.sovann.hang.api.features.users.entities.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import io.sovann.hang.api.features.foods.entities.*;
+import io.sovann.hang.api.features.foods.payloads.requests.*;
+import io.sovann.hang.api.features.foods.payloads.responses.*;
+import io.sovann.hang.api.features.foods.repos.*;
+import io.sovann.hang.api.features.users.entities.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.cache.annotation.*;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
 @Service
 @RequiredArgsConstructor
 public class FoodServiceImpl {
     private final FoodRepository foodRepository;
+    private final FoodFavoriteServiceImpl favoriteService;
     private final FoodCategoryRepository foodCategoryRepository;
 
     @Transactional
@@ -52,7 +43,11 @@ public class FoodServiceImpl {
             return Collections.emptyList();
         }
         List<Food> foods = foodRepository.findAllByCategory(foodCategory);
-        return FoodResponse.fromEntities(foods);
+        if (user == null) {
+            return FoodResponse.fromEntities(foods, Collections.emptyList());
+        }
+        List<FavoriteResponse> favorites = favoriteService.listFoodFavorites(user);
+        return FoodResponse.fromEntities(foods, favorites);
     }
 
     // For admin only
@@ -61,7 +56,8 @@ public class FoodServiceImpl {
     public List<FoodResponse> listFoods(User user, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Food> foods = foodRepository.findAll(pageable);
-        return FoodResponse.fromEntities(foods.getContent());
+        List<FavoriteResponse> favorites = favoriteService.listFoodFavorites(user);
+        return FoodResponse.fromEntities(foods.getContent(), favorites);
     }
 
     @Transactional

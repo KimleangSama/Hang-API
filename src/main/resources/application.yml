@@ -65,17 +65,6 @@ spring:
     username: ${RABBITMQ_USERNAME:rabbitmq}
     password: ${RABBITMQ_PASSWORD:rabbitmq}
 
-  webflux:
-    base-path: /api
-    static-path-pattern: /static/**
-
-  jackson:
-    default-property-inclusion: non_null
-    serialization:
-      write-dates-as-timestamps: false
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: UTC
-
 rsa:
   private-key:
     classpath:certs/private.pem
@@ -116,3 +105,9 @@ logging:
     correlation: '[${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 loki:
   url: ${LOKI_URL:http://localhost:3100/loki/api/v1/push}
+
+rabbitmq:
+  queue:
+    name: ${RABBITMQ_QUEUE_NAME:cart_queue}
+  exchange:
+    name: ${RABBITMQ_EXCHANGE_NAME:cart_exchange}

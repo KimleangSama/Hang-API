@@ -1,5 +1,6 @@
 package io.sovann.hang.api.features.carts.entities;
 
+import com.fasterxml.jackson.annotation.*;
 import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -11,7 +11,8 @@ public class UnRestrictedEndpoint {
             "/api-docs/**",
             "/aggregate/**",
             "/actuator/prometheus",
-            "/actuator/health/**"
+            "/actuator/health/**",
+            "/api/v1/foods/list/**"
     };
 
     public static final String LOGOUT_URL = "/api/v1/auth/logout";

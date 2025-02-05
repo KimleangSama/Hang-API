@@ -1,24 +1,19 @@
 package io.sovann.hang.api.features.foods.controllers;
 
-import io.sovann.hang.api.annotations.CurrentUser;
-import io.sovann.hang.api.constants.APIURLs;
-import io.sovann.hang.api.features.commons.controllers.ControllerServiceCallback;
-import io.sovann.hang.api.features.commons.payloads.BaseResponse;
-import io.sovann.hang.api.features.commons.payloads.PageMeta;
-import io.sovann.hang.api.features.foods.payloads.requests.CreateFoodRequest;
-import io.sovann.hang.api.features.foods.payloads.requests.FoodToggleRequest;
-import io.sovann.hang.api.features.foods.payloads.responses.FoodCategoryResponse;
-import io.sovann.hang.api.features.foods.payloads.responses.FoodResponse;
-import io.sovann.hang.api.features.foods.services.FoodServiceImpl;
-import io.sovann.hang.api.features.users.securities.CustomUserDetails;
-import io.sovann.hang.api.utils.SoftEntityDeletable;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
+import io.sovann.hang.api.annotations.*;
+import io.sovann.hang.api.constants.*;
+import io.sovann.hang.api.features.commons.controllers.*;
+import io.sovann.hang.api.features.commons.payloads.*;
+import io.sovann.hang.api.features.foods.payloads.requests.*;
+import io.sovann.hang.api.features.foods.payloads.responses.*;
+import io.sovann.hang.api.features.foods.services.*;
+import io.sovann.hang.api.features.users.securities.*;
+import io.sovann.hang.api.utils.*;
+import java.util.*;
+import lombok.*;
+import lombok.extern.slf4j.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -44,8 +39,7 @@ public class FoodController {
             @CurrentUser CustomUserDetails user,
             @RequestParam UUID categoryId
     ) {
-        SoftEntityDeletable.throwErrorIfSoftDeleted(user.getUser());
-        return callback.execute(() -> foodService.listFoodByCategoryId(user.getUser(), categoryId),
+        return callback.execute(() -> foodService.listFoodByCategoryId(user != null ? user.getUser() : null, categoryId),
                 "Food failed to list",
                 null);
     }

@@ -29,7 +29,7 @@ public class CartFood extends BaseEntityAudit {
 
     @ManyToOne
     @JoinColumn(name = "food_id")
-    private Food item;
+    private Food food;
 
     private Integer quantity;
     private String specialRequests;

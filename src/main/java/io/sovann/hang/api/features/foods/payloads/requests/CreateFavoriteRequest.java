@@ -14,6 +14,7 @@ import java.util.UUID;
 @ToString
 public class CreateFavoriteRequest {
     private UUID foodId;
+    private UUID categoryId;
 
     public static Favorite fromRequest(Food food) {
         Favorite favorite = new Favorite();

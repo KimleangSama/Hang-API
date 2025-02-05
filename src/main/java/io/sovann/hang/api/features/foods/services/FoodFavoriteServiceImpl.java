@@ -1,20 +1,16 @@
 package io.sovann.hang.api.features.foods.services;
 
-import io.sovann.hang.api.exceptions.ResourceNotFoundException;
-import io.sovann.hang.api.features.foods.entities.Favorite;
-import io.sovann.hang.api.features.foods.entities.Food;
-import io.sovann.hang.api.features.foods.payloads.requests.CreateFavoriteRequest;
-import io.sovann.hang.api.features.foods.payloads.responses.FavoriteResponse;
-import io.sovann.hang.api.features.foods.repos.FoodFavoriteRepository;
-import io.sovann.hang.api.features.foods.repos.FoodRepository;
-import io.sovann.hang.api.features.users.entities.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import io.sovann.hang.api.exceptions.*;
+import io.sovann.hang.api.features.foods.entities.*;
+import io.sovann.hang.api.features.foods.payloads.requests.*;
+import io.sovann.hang.api.features.foods.payloads.responses.*;
+import io.sovann.hang.api.features.foods.repos.*;
+import io.sovann.hang.api.features.users.entities.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.cache.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +19,10 @@ public class FoodFavoriteServiceImpl {
     private final FoodFavoriteRepository favoriteRepository;
 
     @Transactional
-    @CacheEvict(value = "favorites", key = "#user.id")
+    @Caching(evict = {
+            @CacheEvict(value = "favorites", key = "#user.id"),
+            @CacheEvict(value = "foods", key = "#request.categoryId")
+    })
     public FavoriteResponse createFavorite(User user, CreateFavoriteRequest request) {
         Food food = foodRepository.findById(request.getFoodId())
                 .orElseThrow(() -> new ResourceNotFoundException("Food", request.getFoodId().toString()));
@@ -34,7 +33,10 @@ public class FoodFavoriteServiceImpl {
     }
 
     @Transactional
-    @CacheEvict(value = "favorites", key = "#user.id")
+    @Caching(evict = {
+            @CacheEvict(value = "favorites", key = "#user.id"),
+            @CacheEvict(value = "foods", key = "#request.categoryId")
+    })
     public FavoriteResponse deleteFavorite(User user, CreateFavoriteRequest request) {
         Favorite favorite = favoriteRepository.findByUserIdAndFoodId(user.getId(), request.getFoodId())
                 .orElseThrow(() -> new ResourceNotFoundException("Favorite", request.getFoodId().toString()));

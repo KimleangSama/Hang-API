@@ -1,19 +1,13 @@
 package io.sovann.hang.api.utils;
 
-import io.sovann.hang.api.exceptions.ResourceDeletedException;
-import io.sovann.hang.api.exceptions.ResourceForbiddenException;
-import io.sovann.hang.api.exceptions.ResourceNotFoundException;
-import io.sovann.hang.api.features.commons.entities.EntityDeletable;
-import io.sovann.hang.api.features.users.entities.Role;
-import io.sovann.hang.api.features.users.entities.User;
-import io.sovann.hang.api.features.users.enums.AuthRole;
-import io.sovann.hang.api.features.users.enums.AuthStatus;
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import io.sovann.hang.api.exceptions.*;
+import io.sovann.hang.api.features.commons.entities.*;
+import io.sovann.hang.api.features.users.entities.*;
+import io.sovann.hang.api.features.users.enums.*;
+import io.sovann.hang.api.features.users.securities.*;
+import java.util.*;
+import java.util.stream.*;
+import lombok.extern.slf4j.*;
 
 @Slf4j
 public class SoftEntityDeletable {
