@@ -9,18 +9,18 @@ import org.springframework.context.annotation.*;
 public class CartRabbitMQConfig {
 
     @Value("${rabbitmq.queue.name}")
-    public static String QUEUE_NAME;
+    public final static String QUEUE_NAME = "cart_queue";
     @Value("${rabbitmq.exchange.name}")
-    public static String EXCHANGE_NAME;
+    public final static String EXCHANGE_NAME = "cart_exchange";
 
     @Bean
     public Queue queue() {
-        return new Queue(QUEUE_NAME, false);
+        return new Queue(CartRabbitMQConfig.QUEUE_NAME, false);
     }
 
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange(EXCHANGE_NAME);
+        return new TopicExchange(CartRabbitMQConfig.EXCHANGE_NAME);
     }
 
     @Bean

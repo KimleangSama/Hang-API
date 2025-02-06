@@ -1,6 +1,7 @@
 package io.sovann.hang.api.features.carts.services.subs;
 
 import io.sovann.hang.api.features.carts.entities.*;
+import io.sovann.hang.api.features.carts.payloads.requests.*;
 import io.sovann.hang.api.features.carts.repos.*;
 import lombok.*;
 import org.springframework.amqp.rabbit.annotation.*;
@@ -14,8 +15,12 @@ public class CartSubscriberServiceImpl {
 
     @Transactional
     @RabbitListener(queues = "${rabbitmq.queue.name}")
-    public void receiveCartMessage(Cart cart) {
-        System.out.println("Received cart message: " + cart);
+    public void receiveCartMessage(
+            CreateCartQRequest request
+    ) {
+        Cart cart = new Cart();
+        cart.setTable(request.getTable());
+        cart.setCreatedBy(request.getUserId());
         cartRepository.save(cart);
     }
 }
