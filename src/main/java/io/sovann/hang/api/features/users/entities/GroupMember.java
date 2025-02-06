@@ -1,14 +1,10 @@
 package io.sovann.hang.api.features.users.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("GroupMember")
 @Getter

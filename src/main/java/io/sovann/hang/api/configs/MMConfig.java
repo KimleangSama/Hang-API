@@ -1,9 +1,8 @@
 package io.sovann.hang.api.configs;
 
-import org.modelmapper.Condition;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.internal.converter.MergingCollectionConverter;
+import org.modelmapper.*;
+import org.modelmapper.convention.*;
+import org.modelmapper.internal.converter.*;
 
 public class MMConfig {
     private MMConfig() {

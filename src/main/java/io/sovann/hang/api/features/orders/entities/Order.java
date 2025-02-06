@@ -1,16 +1,13 @@
 package io.sovann.hang.api.features.orders.entities;
 
-import io.sovann.hang.api.features.orders.enums.OrderStatus;
-import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
+import io.sovann.hang.api.features.orders.enums.*;
+import io.sovann.hang.api.features.users.entities.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.io.*;
+import java.time.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("Order")
 @Getter

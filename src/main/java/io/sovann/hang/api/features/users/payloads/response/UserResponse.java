@@ -1,15 +1,12 @@
 package io.sovann.hang.api.features.users.payloads.response;
 
-import io.sovann.hang.api.features.users.entities.User;
-import io.sovann.hang.api.features.users.enums.AuthProvider;
-import io.sovann.hang.api.utils.SoftEntityDeletable;
+import io.sovann.hang.api.features.users.entities.*;
+import io.sovann.hang.api.features.users.enums.*;
+import io.sovann.hang.api.utils.*;
+import java.io.*;
+import java.util.*;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import lombok.extern.slf4j.*;
 
 @Slf4j
 @Getter

@@ -25,7 +25,7 @@ public class CartFoodResponse {
 
     public static List<CartFoodResponse> fromEntities(List<CartFood> cartFoods) {
         if (cartFoods == null) {
-            return null;
+            return Collections.emptyList();
         }
         List<CartFoodResponse> responses = new ArrayList<>();
         for (CartFood cartFood : cartFoods) {

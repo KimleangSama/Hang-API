@@ -1,9 +1,7 @@
 package io.sovann.hang.api.features.foods.payloads.requests;
 
-import io.sovann.hang.api.features.foods.entities.FoodCategory;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import io.sovann.hang.api.features.foods.entities.*;
+import lombok.*;
 
 @Getter
 @Setter

@@ -1,16 +1,12 @@
 package io.sovann.hang.api.features.users.entities;
 
 
-import io.sovann.hang.api.features.users.enums.AuthRole;
+import io.sovann.hang.api.features.users.enums.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.UUID;
+import jakarta.validation.constraints.*;
+import java.io.*;
+import java.util.*;
+import lombok.*;
 
 @Getter
 @Setter

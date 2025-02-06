@@ -1,12 +1,8 @@
 package io.sovann.hang.api.features.foods.payloads.responses;
 
-import io.sovann.hang.api.features.foods.entities.Favorite;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.util.List;
-import java.util.UUID;
+import io.sovann.hang.api.features.foods.entities.*;
+import java.util.*;
+import lombok.*;
 
 @Getter
 @Setter

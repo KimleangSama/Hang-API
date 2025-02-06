@@ -2,17 +2,13 @@ package io.sovann.hang.api.features.users.securities;
 
 
 import io.sovann.hang.api.features.users.entities.User;
-import io.sovann.hang.api.features.users.enums.AuthStatus;
-import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import io.sovann.hang.api.features.users.enums.*;
+import java.io.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.authority.*;
+import org.springframework.security.core.userdetails.*;
 
 public class CustomUserDetails implements UserDetails, Serializable {
     @Serial

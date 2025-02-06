@@ -1,9 +1,7 @@
 package io.sovann.hang.api.configs.properties;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.*;
+import org.springframework.boot.context.properties.*;
 
 @Getter
 @Setter

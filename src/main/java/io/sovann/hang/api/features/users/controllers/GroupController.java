@@ -1,26 +1,18 @@
 package io.sovann.hang.api.features.users.controllers;
 
-import io.sovann.hang.api.annotations.CurrentUser;
-import io.sovann.hang.api.constants.APIURLs;
-import io.sovann.hang.api.features.commons.controllers.ControllerServiceCallback;
-import io.sovann.hang.api.features.commons.payloads.BaseResponse;
-import io.sovann.hang.api.features.commons.payloads.PageMeta;
-import io.sovann.hang.api.features.users.payloads.request.AddOrRemoveGroupMemberRequest;
-import io.sovann.hang.api.features.users.payloads.request.CreateGroupRequest;
-import io.sovann.hang.api.features.users.payloads.request.PromoteDemoteRequest;
-import io.sovann.hang.api.features.users.payloads.request.RegisterToGroupRequest;
-import io.sovann.hang.api.features.users.payloads.response.GroupMemberResponse;
-import io.sovann.hang.api.features.users.payloads.response.GroupResponse;
-import io.sovann.hang.api.features.users.payloads.response.UserResponse;
-import io.sovann.hang.api.features.users.securities.CustomUserDetails;
-import io.sovann.hang.api.features.users.services.GroupServiceImpl;
-import io.sovann.hang.api.utils.SoftEntityDeletable;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+import io.sovann.hang.api.annotations.*;
+import io.sovann.hang.api.constants.*;
+import io.sovann.hang.api.features.commons.controllers.*;
+import io.sovann.hang.api.features.commons.payloads.*;
+import io.sovann.hang.api.features.users.payloads.request.*;
+import io.sovann.hang.api.features.users.payloads.response.*;
+import io.sovann.hang.api.features.users.securities.*;
+import io.sovann.hang.api.features.users.services.*;
+import io.sovann.hang.api.utils.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(APIURLs.GROUP)

@@ -1,16 +1,11 @@
 package io.sovann.hang.api.features.tables.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.io.*;
+import java.time.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("TableGroup")
 @Getter

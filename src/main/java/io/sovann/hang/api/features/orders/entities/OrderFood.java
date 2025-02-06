@@ -1,17 +1,11 @@
 package io.sovann.hang.api.features.orders.entities;
 
-import io.sovann.hang.api.features.foods.entities.Food;
-import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
+import io.sovann.hang.api.features.foods.entities.*;
+import io.sovann.hang.api.features.users.entities.*;
+import jakarta.persistence.*;
+import java.io.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("OrderFood")
 @Getter

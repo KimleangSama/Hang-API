@@ -1,9 +1,7 @@
 package io.sovann.hang.api.utils;
 
-import io.sovann.hang.api.features.users.entities.GroupMember;
-import io.sovann.hang.api.features.users.entities.User;
-
-import java.util.Set;
+import io.sovann.hang.api.features.users.entities.*;
+import java.util.*;
 
 public class GroupMemberUtils {
     public static boolean isUserIsMemberOfGroup(User user, Set<GroupMember> members) {

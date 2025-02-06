@@ -1,11 +1,8 @@
 package io.sovann.hang.api.features.users.payloads.response;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serializable;
-import java.time.Instant;
+import java.io.*;
+import java.time.*;
+import lombok.*;
 
 @Getter
 @Setter

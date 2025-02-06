@@ -1,9 +1,8 @@
 package io.sovann.hang.api.configs;
 
-import io.micrometer.observation.ObservationRegistry;
-import io.micrometer.observation.aop.ObservedAspect;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import io.micrometer.observation.*;
+import io.micrometer.observation.aop.*;
+import org.springframework.context.annotation.*;
 
 @Configuration
 public class ObservationConfig {

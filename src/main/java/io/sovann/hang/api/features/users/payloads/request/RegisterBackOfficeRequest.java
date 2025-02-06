@@ -1,13 +1,9 @@
 package io.sovann.hang.api.features.users.payloads.request;
 
-import io.sovann.hang.api.features.users.enums.AuthRole;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.util.List;
+import io.sovann.hang.api.features.users.enums.*;
+import jakarta.validation.constraints.*;
+import java.util.*;
+import lombok.*;
 
 @Getter
 @Setter

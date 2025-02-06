@@ -1,8 +1,7 @@
 package io.sovann.hang.api.utils;
 
-import org.springframework.util.StringUtils;
-
-import java.util.UUID;
+import java.util.*;
+import org.springframework.util.*;
 
 public class RandomString {
     public static String make(int length) {

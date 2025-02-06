@@ -1,15 +1,10 @@
 package io.sovann.hang.api.features.tables.entities;
 
-import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
+import io.sovann.hang.api.features.users.entities.*;
+import jakarta.persistence.*;
+import java.io.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("Service")
 @Getter

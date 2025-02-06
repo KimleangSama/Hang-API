@@ -1,14 +1,11 @@
 package io.sovann.hang.api.features.feedbacks.entities;
 
-import io.sovann.hang.api.features.feedbacks.enums.Rating;
-import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
+import io.sovann.hang.api.features.feedbacks.enums.*;
+import io.sovann.hang.api.features.users.entities.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
+import java.io.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("Feedback")
 @Getter

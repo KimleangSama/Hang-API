@@ -1,21 +1,15 @@
 package io.sovann.hang.api.features.users.entities;
 
-import com.redis.om.spring.annotations.Indexed;
-import io.sovann.hang.api.features.commons.entities.EntityDeletable;
-import io.sovann.hang.api.features.users.enums.AuthProvider;
-import io.sovann.hang.api.features.users.enums.AuthStatus;
+import com.redis.om.spring.annotations.*;
+import io.sovann.hang.api.features.commons.entities.*;
+import io.sovann.hang.api.features.users.enums.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import jakarta.validation.constraints.*;
+import java.io.*;
+import java.time.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("User")
 @Getter

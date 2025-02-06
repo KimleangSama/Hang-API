@@ -1,22 +1,21 @@
 package io.sovann.hang.api.features.carts.entities;
 
-import com.fasterxml.jackson.annotation.*;
-import io.sovann.hang.api.features.users.entities.BaseEntityAudit;
+import io.sovann.hang.api.features.carts.payloads.responses.*;
+import io.sovann.hang.api.features.users.entities.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serial;
-import java.util.List;
+import java.io.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.data.redis.core.*;
 
 @RedisHash("Cart")
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "carts")
+@Table(name = "carts", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"created_by"})
+})
 public class Cart extends BaseEntityAudit {
     @Serial
     private final static long serialVersionUID = 1L;

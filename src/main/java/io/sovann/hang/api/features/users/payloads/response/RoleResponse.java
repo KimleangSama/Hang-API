@@ -1,16 +1,11 @@
 package io.sovann.hang.api.features.users.payloads.response;
 
-import io.sovann.hang.api.features.users.entities.Role;
-import io.sovann.hang.api.features.users.enums.AuthRole;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import io.sovann.hang.api.features.users.entities.*;
+import io.sovann.hang.api.features.users.enums.*;
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
+import lombok.*;
 
 @Getter
 @Setter

@@ -1,10 +1,7 @@
 package io.sovann.hang.api.features.users.payloads.response;
 
-import io.sovann.hang.api.features.users.entities.Group;
-import io.sovann.hang.api.features.users.entities.User;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import io.sovann.hang.api.features.users.entities.*;
+import lombok.*;
 
 @Getter
 @Setter

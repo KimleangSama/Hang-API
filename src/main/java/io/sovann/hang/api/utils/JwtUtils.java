@@ -1,7 +1,7 @@
 package io.sovann.hang.api.utils;
 
 
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 public enum JwtUtils {

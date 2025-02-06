@@ -7,5 +7,6 @@ import org.springframework.stereotype.*;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, UUID> {
-    Optional<Cart> findByTableId(UUID tableId);
+    Optional<List<Cart>> findByTableId(UUID tableId);
+    Optional<Cart> findByCreatedBy(UUID id);
 }

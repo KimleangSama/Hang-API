@@ -102,4 +102,10 @@ public class FoodServiceImpl {
         foodRepository.delete(food);
         return FoodResponse.fromEntity(food);
     }
+
+    @Transactional
+    @CacheEvict(value = "foods", key = "#foodId")
+    public Optional<Food> getFoodById(UUID foodId) {
+        return foodRepository.findById(foodId);
+    }
 }

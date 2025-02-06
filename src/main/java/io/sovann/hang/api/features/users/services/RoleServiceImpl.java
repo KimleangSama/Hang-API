@@ -1,22 +1,17 @@
 package io.sovann.hang.api.features.users.services;
 
 
-import io.sovann.hang.api.exceptions.ResourceNotFoundException;
-import io.sovann.hang.api.features.users.entities.Role;
-import io.sovann.hang.api.features.users.entities.User;
-import io.sovann.hang.api.features.users.enums.AuthRole;
-import io.sovann.hang.api.features.users.payloads.response.RoleResponse;
-import io.sovann.hang.api.features.users.repos.RoleRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import io.sovann.hang.api.exceptions.*;
+import io.sovann.hang.api.features.users.entities.*;
+import io.sovann.hang.api.features.users.enums.*;
+import io.sovann.hang.api.features.users.payloads.response.*;
+import io.sovann.hang.api.features.users.repos.*;
+import java.util.*;
+import java.util.stream.*;
+import lombok.*;
+import lombok.extern.slf4j.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
 @Slf4j
 @Service

@@ -1,13 +1,12 @@
 package io.sovann.hang.api.configs.securities;
 
 
-import io.sovann.hang.api.configs.properties.CORSProperties;
+import io.sovann.hang.api.configs.properties.*;
 import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.annotation.Configuration;
-
-import java.io.IOException;
-import java.util.Arrays;
+import jakarta.servlet.http.*;
+import java.io.*;
+import java.util.*;
+import org.springframework.context.annotation.*;
 
 @Configuration
 public class SimpleCORSFilter implements Filter {

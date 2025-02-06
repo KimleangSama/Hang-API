@@ -1,29 +1,22 @@
 package io.sovann.hang.api.configs.securities;
 
-import io.sovann.hang.api.configs.handlers.RestAccessDeniedHandler;
-import io.sovann.hang.api.configs.handlers.RestAuthenticationEntryPoint;
-import io.sovann.hang.api.configs.properties.CORSProperties;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import io.sovann.hang.api.configs.handlers.*;
+import io.sovann.hang.api.configs.properties.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.*;
+import org.springframework.security.config.annotation.method.configuration.*;
+import org.springframework.security.config.annotation.web.builders.*;
+import org.springframework.security.config.annotation.web.configuration.*;
+import org.springframework.security.config.annotation.web.configurers.*;
+import org.springframework.security.config.http.*;
+import org.springframework.security.core.context.*;
+import org.springframework.security.web.*;
+import org.springframework.security.web.authentication.*;
+import org.springframework.security.web.servlet.util.matcher.*;
+import org.springframework.web.cors.*;
+import org.springframework.web.servlet.handler.*;
 
 @Configuration
 @EnableWebSecurity
