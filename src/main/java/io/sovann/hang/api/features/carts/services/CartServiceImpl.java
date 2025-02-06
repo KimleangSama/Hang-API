@@ -52,7 +52,7 @@ public class CartServiceImpl {
 
     @Transactional
     @Cacheable(value = "entities", key = "#cartId")
-    public Optional<Cart> getCartById(User user, UUID cartId) {
+    public Optional<Cart> getCartEntityById(UUID cartId) {
         return cartRepository.findById(cartId);
     }
 }

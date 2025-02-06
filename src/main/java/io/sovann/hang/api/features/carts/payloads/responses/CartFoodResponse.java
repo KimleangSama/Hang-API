@@ -12,6 +12,9 @@ public class CartFoodResponse {
     private UUID id;
     private UUID cartId;
     private UUID tableId;
+    private UUID foodId;
+    private int quantity;
+    private String specialRequests;
     private FoodResponse food;
 
     public static CartFoodResponse fromEntity(CartFood cartFood) {
@@ -20,6 +23,9 @@ public class CartFoodResponse {
         response.setCartId(cartFood.getCart().getId());
         response.setTableId(cartFood.getCart().getTable().getId());
         response.setFood(FoodResponse.fromEntity(cartFood.getFood()));
+        response.setFoodId(cartFood.getFood().getId());
+        response.setQuantity(cartFood.getQuantity());
+        response.setSpecialRequests(cartFood.getSpecialRequests());
         return response;
     }
 
