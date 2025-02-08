@@ -16,4 +16,5 @@ public class APIURLs {
     public static final String TABLE = BASE + "/tables";
     public static final String ORDER_FOOD = BASE + "/order-foods";
     public static final String ORDER = BASE + "/orders";
+    public static final String FEEDBACK = BASE + "/feedbacks";
 }
