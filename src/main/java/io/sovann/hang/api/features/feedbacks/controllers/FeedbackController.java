@@ -39,9 +39,9 @@ public class FeedbackController {
     }
 
     @GetMapping("/rate")
-    public BaseResponse<Double> getAverageRateOfFeedbacks(
+    public BaseResponse<RateResponse> getAverageRateOfFeedbacks(
             @CurrentUser CustomUserDetails user,
-            @RequestParam UUID tableId
+            @RequestParam(required = false) UUID tableId
     ) {
         return callback.execute(() -> feedbackService.getAverageRateOfFeedbacks(user != null ? user.getUser() : null, tableId),
                 "Feedbacks failed to list",

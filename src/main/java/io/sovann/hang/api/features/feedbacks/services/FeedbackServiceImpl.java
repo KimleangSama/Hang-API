@@ -8,7 +8,6 @@ import io.sovann.hang.api.features.tables.services.*;
 import io.sovann.hang.api.features.users.entities.*;
 import java.util.*;
 import lombok.*;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.*;
 
@@ -39,10 +38,23 @@ public class FeedbackServiceImpl {
         return feedbacks.stream().map(FeedbackResponse::fromEntity).toList();
     }
 
-    public Double getAverageRateOfFeedbacks(User user, UUID tableId) {
-        Table table = tableService.findTableEntityById(tableId)
-                .orElseThrow(() -> new RuntimeException("Table not found"));
-        List<Feedback> feedbacks = feedbackRepository.findAllByTable(table);
-        return feedbacks.stream().mapToDouble(r -> r.getRating().getValue()).sum() / feedbacks.size();
+    public RateResponse getAverageRateOfFeedbacks(User user, UUID tableId) {
+        List<Feedback> feedbacks;
+        if (tableId != null) {
+            Table table = tableService.findTableEntityById(tableId).orElse(null);
+            feedbacks = (table != null) ? feedbackRepository.findAllByTable(table) : feedbackRepository.findAll();
+        } else {
+            feedbacks = feedbackRepository.findAll();
+        }
+        return calculateRateResponse(feedbacks, tableId);
+    }
+
+    private RateResponse calculateRateResponse(List<Feedback> feedbacks, UUID tableId) {
+        double amount = feedbacks.size();
+        double rate = (amount > 0) ? feedbacks.stream().mapToDouble(f -> f.getRating().getValue()).sum() / amount : 0;
+        RateResponse response = new RateResponse();
+        response.setRate(rate);
+        response.setAmount(amount);
+        return response;
     }
 }
