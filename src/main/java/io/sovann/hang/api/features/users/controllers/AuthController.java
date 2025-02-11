@@ -76,7 +76,7 @@ public class AuthController {
             }
         } catch (Exception e) {
             log.error("User registration failed. Reason: {}", e.getMessage(), e);
-            return BaseResponse.<UserResponse>badRequest().setErrors("User registration failed. Reason: " + e.getMessage());
+            return BaseResponse.<UserResponse>badRequest().setError("User registration failed. Reason: " + e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class AuthController {
         if (!user.getProvider().equals(AuthProvider.local)) {
             message = "Looks like you're already registered with " + user.getProvider() + " account. Please login with your " + user.getProvider() + " account.";
         }
-        return BaseResponse.<UserResponse>badRequest().setErrors(message);
+        return BaseResponse.<UserResponse>badRequest().setError(message);
     }
 
     @PostMapping("/refresh")
@@ -99,7 +99,7 @@ public class AuthController {
     }
 
     private BaseResponse<AuthResponse> createErrorResponse(String message) {
-        return BaseResponse.<AuthResponse>exception().setErrors(message).setPayload(null);
+        return BaseResponse.<AuthResponse>exception().setError(message).setPayload(null);
     }
 
 

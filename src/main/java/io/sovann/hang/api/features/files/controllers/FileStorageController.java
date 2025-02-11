@@ -36,7 +36,7 @@ public class FileStorageController {
             Resource resource = fileStorageService.load(filename);
             if (resource == null || !resource.exists()) {
                 return BaseResponse.<FileResponse>notFound()
-                        .setErrors(FILE_NOT_FOUND);
+                        .setError(FILE_NOT_FOUND);
             }
             FileResponse fileResponse = FileResponse.fromEntity(filename);
             return BaseResponse.<FileResponse>ok()
@@ -44,11 +44,11 @@ public class FileStorageController {
         } catch (ResourceNotFoundException e) {
             log.error(FILE_NOT_FOUND + ": {}", e.getMessage());
             return BaseResponse.<FileResponse>notFound()
-                    .setErrors(e.getMessage());
+                    .setError(e.getMessage());
         } catch (Exception e) {
             log.error(LOAD_FILE_ERROR + ": {}", e.getMessage());
             return BaseResponse.<FileResponse>exception()
-                    .setErrors(e.getMessage());
+                    .setError(e.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class FileStorageController {
         try {
             if (user == null || user.getUser() == null) {
                 return BaseResponse.<FileResponse>accessDenied()
-                        .setErrors("User is not permitted to upload file.");
+                        .setError("User is not permitted to upload file.");
             }
             String filename = fileStorageService.save(user.getUser(), file);
             FileResponse fileResponse = FileResponse.fromEntity(filename);
@@ -86,11 +86,11 @@ public class FileStorageController {
         } catch (FileStorageException e) {
             log.error(FILE_STORAGE_ERROR + "{}", e.getMessage());
             return BaseResponse.<FileResponse>duplicateEntity()
-                    .setErrors(e.getMessage());
+                    .setError(e.getMessage());
         } catch (Exception e) {
             log.error(FILE_STORAGE_ERROR + "{}", e.getMessage(), e);
             return BaseResponse.<FileResponse>exception()
-                    .setErrors(e.getMessage());
+                    .setError(e.getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ public class FileStorageController {
         try {
             if (user == null || user.getUser() == null) {
                 return BaseResponse.<List<FileResponse>>accessDenied()
-                        .setErrors("User is not permitted to upload file.");
+                        .setError("User is not permitted to upload file.");
             }
             List<String> filenames = fileStorageService.saveAll(user.getUser(), files);
             return BaseResponse.<List<FileResponse>>ok()
@@ -110,11 +110,11 @@ public class FileStorageController {
         } catch (FileStorageException e) {
             log.error(FILE_STORAGE_ERROR + "{}", e.getMessage());
             return BaseResponse.<List<FileResponse>>duplicateEntity()
-                    .setErrors(e.getMessage());
+                    .setError(e.getMessage());
         } catch (Exception e) {
             log.error(FILE_STORAGE_ERROR + "{}", e.getMessage(), e);
             return BaseResponse.<List<FileResponse>>exception()
-                    .setErrors(e.getMessage());
+                    .setError(e.getMessage());
         }
     }
 }

@@ -56,8 +56,7 @@ public class FoodServiceImpl {
     public List<FoodResponse> listFoods(User user, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Food> foods = foodRepository.findAll(pageable);
-        List<FavoriteResponse> favorites = favoriteService.listFoodFavorites(user);
-        return FoodResponse.fromEntities(foods.getContent(), favorites);
+        return FoodResponse.fromEntities(foods.getContent(), Collections.emptyList());
     }
 
     @Transactional
@@ -107,5 +106,16 @@ public class FoodServiceImpl {
     @CacheEvict(value = "foods", key = "#foodId")
     public Optional<Food> getFoodById(UUID foodId) {
         return foodRepository.findById(foodId);
+    }
+
+    @Transactional
+    @Cacheable(value = "foods")
+    public List<FoodResponse> listFoodsWithCategory(User user) {
+        List<Food> foods = foodRepository.findAll();
+        if (user == null) {
+            return FoodResponse.fromEntities(foods, Collections.emptyList());
+        }
+        List<FavoriteResponse> favorites = favoriteService.listFoodFavorites(user);
+        return FoodResponse.fromEntities(foods, favorites);
     }
 }

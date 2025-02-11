@@ -1,19 +1,25 @@
 package io.sovann.hang.api.features.foods.controllers;
 
-import io.sovann.hang.api.annotations.*;
-import io.sovann.hang.api.constants.*;
-import io.sovann.hang.api.features.commons.controllers.*;
-import io.sovann.hang.api.features.commons.payloads.*;
-import io.sovann.hang.api.features.foods.payloads.requests.*;
-import io.sovann.hang.api.features.foods.payloads.responses.*;
-import io.sovann.hang.api.features.foods.services.*;
-import io.sovann.hang.api.features.users.securities.*;
-import io.sovann.hang.api.utils.*;
-import java.util.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.security.access.prepost.*;
+import io.sovann.hang.api.annotations.CurrentUser;
+import io.sovann.hang.api.constants.APIURLs;
+import io.sovann.hang.api.features.commons.controllers.ControllerServiceCallback;
+import io.sovann.hang.api.features.commons.payloads.BaseResponse;
+import io.sovann.hang.api.features.commons.payloads.PageMeta;
+import io.sovann.hang.api.features.foods.payloads.requests.CreateFoodRequest;
+import io.sovann.hang.api.features.foods.payloads.requests.FoodToggleRequest;
+import io.sovann.hang.api.features.foods.payloads.responses.FoodResponse;
+import io.sovann.hang.api.features.foods.services.FoodServiceImpl;
+import io.sovann.hang.api.features.users.securities.CustomUserDetails;
+import io.sovann.hang.api.utils.SoftEntityDeletable;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -35,7 +41,7 @@ public class FoodController {
     }
 
     @GetMapping("/list")
-    public BaseResponse<List<FoodResponse>> listFoodByCategoryId(
+    public BaseResponse<List<FoodResponse>> listFoodsByCategoryId(
             @CurrentUser CustomUserDetails user,
             @RequestParam UUID categoryId
     ) {
@@ -45,16 +51,29 @@ public class FoodController {
     }
 
     @GetMapping("/list/all")
-    public BaseResponse<List<FoodResponse>> listFoodByCategoryId(
+    public BaseResponse<List<FoodResponse>> listFoods(
             @CurrentUser CustomUserDetails user,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        SoftEntityDeletable.throwErrorIfSoftDeleted(user.getUser());
         PageMeta meta = new PageMeta(page, size, foodService.count());
-        return callback.execute(() -> foodService.listFoods(user.getUser(), page, size),
+        return callback.execute(() -> foodService.listFoods(user != null ? user.getUser() : null, page, size),
                 "Food failed to list",
                 meta);
+    }
+
+    @GetMapping("/list/all/category")
+    public BaseResponse<Map<String, List<FoodResponse>>> listFoodsWithCategory(
+            @CurrentUser CustomUserDetails user
+    ) {
+        return callback.execute(() -> {
+                    List<FoodResponse> responses = foodService.listFoodsWithCategory(user != null ? user.getUser() : null);
+                    return responses.stream()
+                            .filter((food) -> !food.isHidden())
+                            .sorted((f1, f2) -> f2.getCategoryName().compareTo(f1.getCategoryName()))
+                            .collect(Collectors.groupingBy(FoodResponse::getCategoryName));
+                }, "Food failed to list",
+                null);
     }
 
     @PatchMapping("/toggle-visibility")

@@ -26,7 +26,7 @@ public class Order extends BaseEntityAudit {
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status = OrderStatus.pending;
 
     @Column(name = "order_time")
     private LocalDateTime orderTime;
@@ -34,5 +34,5 @@ public class Order extends BaseEntityAudit {
     private String specialInstructions;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderFood> orderItems;
+    private List<OrderFood> orderFoods;
 }

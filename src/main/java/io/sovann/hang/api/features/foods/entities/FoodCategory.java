@@ -12,7 +12,9 @@ import org.springframework.data.redis.core.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "food_categories")
+@Table(name = "food_categories", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name"})
+})
 public class FoodCategory extends BaseEntityAudit {
     @Serial
     private final static long serialVersionUID = 1L;

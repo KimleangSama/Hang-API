@@ -25,7 +25,16 @@ public class OrderFood extends BaseEntityAudit {
     @JoinColumn(name = "food_id")
     private Food food;
 
-    private Integer quantity;
+    private int quantity;
     private Double unitPrice;
     private String specialRequests;
+
+    public OrderFood() {}
+
+    public OrderFood(Food food, Integer quantity, Double unitPrice, String specialRequests) {
+        this.food = food;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.specialRequests = specialRequests;
+    }
 }

@@ -16,7 +16,7 @@ public class BaseResponse<T> implements Serializable {
     private Status status;
     private int statusCode;
     private transient T payload;
-    private transient Object errors;
+    private transient Object error;
     private boolean success = false;
     private Instant timestamp = Instant.now();
     private transient PageMeta metadata;

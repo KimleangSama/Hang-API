@@ -23,6 +23,8 @@ public class FoodResponse {
     private String servingSize;
     private String calories;
     private boolean isFavorite;
+    private UUID categoryId;
+    private String categoryName;
 
     public static FoodResponse fromEntity(Food food) {
         FoodResponse response = new FoodResponse();
@@ -40,6 +42,11 @@ public class FoodResponse {
         response.setCookingTime(food.getCookingTime());
         response.setServingSize(food.getServingSize());
         response.setCalories(food.getCalories());
+        if (food.getCategory() == null) {
+            return response;
+        }
+        response.setCategoryId(food.getCategory().getId());
+        response.setCategoryName(food.getCategory().getName());
         return response;
     }
 

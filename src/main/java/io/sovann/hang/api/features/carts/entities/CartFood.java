@@ -25,6 +25,6 @@ public class CartFood extends BaseEntityAudit {
     @JoinColumn(name = "food_id")
     private Food food;
 
-    private Integer quantity;
+    private int quantity;
     private String specialRequests;
 }

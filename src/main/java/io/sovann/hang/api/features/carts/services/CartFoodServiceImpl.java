@@ -49,6 +49,8 @@ public class CartFoodServiceImpl {
             CartFoodResponse response = new CartFoodResponse();
             response.setCartId(request.getCartId());
             response.setFoodId(request.getFoodId());
+            response.setQuantity(request.getQuantity());
+            response.setSpecialRequests(request.getSpecialRequests());
             return response;
         } catch (Exception e) {
             log.error("Error creating cart food", e);
@@ -116,5 +118,14 @@ public class CartFoodServiceImpl {
         cartFood.setSpecialRequests(request.getSpecialRequests());
         cartFoodRepository.save(cartFood);
         return CartFoodResponse.fromEntity(cartFood);
+    }
+
+    @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "cart-foods", key = "#cartId"),
+            @CacheEvict(value = "cart-food", key = "#cartId")
+    })
+    public void deleteCartFoodOfCart(UUID cartId) {
+        cartFoodRepository.deleteAllByCartId(cartId);
     }
 }
