@@ -6,20 +6,34 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.*;
 import java.util.*;
+import lombok.*;
+import lombok.extern.slf4j.*;
 import org.springframework.context.annotation.*;
 
+@Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class SimpleCORSFilter implements Filter {
+    private final CORSProperties corsProperties;
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
-        CORSProperties corsProperties = new CORSProperties();
+        HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        List<String> allowedOrigins = corsProperties.getAllowedOrigins();
+        String origin = request.getHeader("Origin");
+        if (allowedOrigins.contains(origin)) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+        }
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization, Origin, Accept, Access-Control-Request-Method, Access-Control-Request-Headers");
-        filterChain.doFilter(req, response);
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+        filterChain.doFilter(req, res);
     }
 
     @Override

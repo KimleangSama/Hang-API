@@ -50,14 +50,13 @@ public class OrderServiceImpl {
         order.setTotalAmount(totalAmount);
         order.setSpecialInstructions(request.getSpecialInstructions());
         order.setOrderFoods(orderFoods); // Set foods before saving
-
         Order savedOrder = orderRepository.save(order);
         orderFoods.forEach(orderFood -> orderFood.setOrder(savedOrder));
-
-        orderFoodRepository.saveAll(orderFoods);
-
-        cartFoodService.deleteCartFoodOfCart(request.getCartId());
-
+        List<OrderFood> savedFoods = orderFoodRepository.saveAll(orderFoods);
+        // Delete food from cart if success
+        if (!savedFoods.isEmpty()) {
+            cartFoodService.deleteCartFoodOfCart(request.getCartId());
+        }
         return OrderResponse.fromEntity(savedOrder);
     }
 

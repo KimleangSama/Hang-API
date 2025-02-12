@@ -1,5 +1,6 @@
 package io.sovann.hang.api.configs.properties;
 
+import java.util.*;
 import lombok.*;
 import org.springframework.boot.context.properties.*;
 
@@ -7,5 +8,5 @@ import org.springframework.boot.context.properties.*;
 @Getter
 @ConfigurationProperties(prefix = "cors")
 public class CORSProperties {
-    private String[] allowedOrigins;
+    private List<String> allowedOrigins;
 }

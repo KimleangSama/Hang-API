@@ -17,6 +17,6 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
         logger.error("Responding with access denied error. Message - {}", e.getMessage());
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType("application/json");
-        response.getWriter().write("{\"statusCode\": 403, \"success\": false,  \"status\": \"FORBIDDEN_ACCESS_DENIED\", \"errors\": \"User is not authorized or forbidden to access.\"}");
+        response.getWriter().write("{\"statusCode\": 403, \"success\": false,  \"status\": \"FORBIDDEN_ACCESS_DENIED\", \"error\": \"User is not authorized or forbidden to access.\"}");
     }
 }
