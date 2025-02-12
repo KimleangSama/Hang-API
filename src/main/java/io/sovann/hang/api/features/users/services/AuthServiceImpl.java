@@ -36,7 +36,7 @@ public class AuthServiceImpl {
 
     @Transactional
     public User registerUser(RegisterBackOfficeRequest request) {
-        return registerUser(request.getUsername(), request.getEmail(), request.getPassword(), request.getRoles());
+        return registerUser(request.getUsername(), RandomString.make(8) + "@mail.com", request.getPassword(), request.getRoles());
     }
 
     @Transactional

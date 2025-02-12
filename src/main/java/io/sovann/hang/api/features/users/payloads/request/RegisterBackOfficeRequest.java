@@ -12,9 +12,6 @@ public class RegisterBackOfficeRequest {
     @NotBlank
     private String username;
     @NotBlank
-    @Email
-    private String email;
-    @NotBlank
     private String password;
     private List<AuthRole> roles;
 }

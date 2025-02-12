@@ -1,16 +1,21 @@
 package io.sovann.hang.api.features.users.controllers;
 
+import io.sovann.hang.api.annotations.*;
 import io.sovann.hang.api.constants.*;
 import io.sovann.hang.api.features.commons.payloads.*;
 import io.sovann.hang.api.features.users.entities.User;
 import io.sovann.hang.api.features.users.enums.*;
 import io.sovann.hang.api.features.users.payloads.request.*;
 import io.sovann.hang.api.features.users.payloads.response.*;
+import io.sovann.hang.api.features.users.securities.*;
 import io.sovann.hang.api.features.users.services.*;
+import io.sovann.hang.api.utils.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
+import org.springframework.cache.annotation.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.web.bind.annotation.*;
@@ -76,7 +81,7 @@ public class AuthController {
             }
         } catch (Exception e) {
             log.error("User registration failed. Reason: {}", e.getMessage(), e);
-            return BaseResponse.<UserResponse>badRequest().setErrors("User registration failed. Reason: " + e.getMessage());
+            return BaseResponse.<UserResponse>badRequest().setError("User registration failed. Reason: " + e.getMessage());
         }
     }
 
@@ -85,7 +90,21 @@ public class AuthController {
         if (!user.getProvider().equals(AuthProvider.local)) {
             message = "Looks like you're already registered with " + user.getProvider() + " account. Please login with your " + user.getProvider() + " account.";
         }
-        return BaseResponse.<UserResponse>badRequest().setErrors(message);
+        return BaseResponse.<UserResponse>badRequest().setError(message);
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("authenticated")
+    public BaseResponse<UserResponse> getCurrentUser(
+            @CurrentUser CustomUserDetails user
+    ) {
+        try {
+            SoftEntityDeletable.throwErrorIfSoftDeleted(user.getUser());
+            log.info("Getting current user: {}", user.getUser());
+            return BaseResponse.<UserResponse>ok().setPayload(UserResponse.fromUser(user.getUser()));
+        } catch (Exception e) {
+            return BaseResponse.<UserResponse>exception().setError("Failed to get current user. Reason: " + e.getMessage());
+        }
     }
 
     @PostMapping("/refresh")
@@ -99,7 +118,7 @@ public class AuthController {
     }
 
     private BaseResponse<AuthResponse> createErrorResponse(String message) {
-        return BaseResponse.<AuthResponse>exception().setErrors(message).setPayload(null);
+        return BaseResponse.<AuthResponse>exception().setError(message).setPayload(null);
     }
 
 
