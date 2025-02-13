@@ -25,11 +25,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -174,13 +176,12 @@ public class StoreServiceImpl {
                 }).toList();
     }
 
+    @Transactional
     @CacheEvict(value = "store", key = "#user.getId()", allEntries = true)
     public StoreResponse updateStore(User user, UUID id, UpdateStoreRequest request) {
         Store store = storeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Store", id.toString()));
-
         updateStoreDetails(store, request, user);
-
         updateEntities(
                 request.getOperatingHours(),
                 operatingHourRepository,
@@ -189,7 +190,10 @@ public class StoreServiceImpl {
                     hour.setDay(req.getDay());
                     hour.setOpenTime(req.getOpenTime());
                     hour.setCloseTime(req.getCloseTime());
-                });
+                    hour.setStore(store);
+                },
+                OperatingHour::new
+        );
 
         updateEntities(
                 request.getOrderOptions(),
@@ -198,18 +202,29 @@ public class StoreServiceImpl {
                 (option, req) -> {
                     option.setName(req.getName());
                     option.setDescription(req.getDescription());
+                    option.setStore(store);
                     updateEntities(req.getFeeRanges(), feeRangeRepository, FeeRange::getId,
                             (range, rangeReq) -> {
+                                orderingOptionRepository.save(option);
                                 range.setCondition(rangeReq.getCondition());
                                 range.setFee(rangeReq.getFee());
-                            });
-                });
+                                range.setOrderingOption(option);
+                            },
+                            FeeRange::new);
+                },
+                OrderingOption::new
+        );
 
         updateEntities(
                 request.getPaymentMethods(),
                 paymentMethodRepository,
                 PaymentMethod::getId,
-                (method, req) -> method.setMethod(req.getMethod()));
+                (method, req) -> {
+                    method.setStore(store);
+                    method.setMethod(req.getMethod());
+                },
+                PaymentMethod::new
+        );
 
         return StoreResponse.fromEntity(store);
     }
@@ -232,23 +247,26 @@ public class StoreServiceImpl {
             List<R> requestList,
             JpaRepository<T, UUID> repository,
             Function<T, UUID> idGetter,
-            BiConsumer<T, R> updater) {
-
+            BiConsumer<T, R> updater,
+            Supplier<T> entitySupplier) {
+        if (!(repository instanceof FeeRangeRepository)) {
+            repository.deleteAll();
+        }
         if (requestList == null || requestList.isEmpty()) return;
-
         Map<UUID, R> requestMap = requestList.stream()
                 .collect(Collectors.toMap(this::extractId, Function.identity()));
+        List<T> existingEntities = repository.findAllById(requestMap.keySet());
+        Map<UUID, T> existingEntitiesMap = existingEntities.stream()
+                .collect(Collectors.toMap(idGetter, Function.identity()));
+        List<T> allEntities = new ArrayList<>();
+        for (R request : requestList) {
+            UUID id = extractId(request);
+            T entity = existingEntitiesMap.getOrDefault(id, entitySupplier.get()); // Use existing or create new
 
-        List<T> entities = repository.findAllById(requestMap.keySet());
-
-        entities.forEach(entity -> {
-            R request = requestMap.get(idGetter.apply(entity));
-            if (request != null) {
-                updater.accept(entity, request);
-            }
-        });
-
-        repository.saveAll(entities);
+            updater.accept(entity, request);
+            allEntities.add(entity);
+        }
+        repository.saveAll(allEntities);
     }
 
     private <R> UUID extractId(R request) {

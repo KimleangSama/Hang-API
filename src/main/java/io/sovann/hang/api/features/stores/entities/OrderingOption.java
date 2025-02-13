@@ -34,6 +34,6 @@ public class OrderingOption implements Serializable {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @OneToMany(mappedBy = "orderingOption", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orderingOption", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FeeRange> feeRanges;
 }

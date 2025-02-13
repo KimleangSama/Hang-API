@@ -1,8 +1,13 @@
 package io.sovann.hang.api.features.tables.payloads.responses;
 
-import io.sovann.hang.api.features.tables.entities.*;
-import java.util.*;
-import lombok.*;
+import io.sovann.hang.api.features.tables.entities.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,5 +33,13 @@ public class TableResponse {
         response.setCapacity(table.getCapacity());
         response.setIsGrouped(table.getIsGrouped());
         return response;
+    }
+
+    public static List<TableResponse> fromEntities(List<Table> content) {
+        List<TableResponse> responses = new ArrayList<>();
+        for (Table table : content) {
+            responses.add(fromEntity(table));
+        }
+        return responses;
     }
 }

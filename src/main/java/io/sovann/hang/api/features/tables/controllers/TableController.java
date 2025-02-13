@@ -1,13 +1,19 @@
 package io.sovann.hang.api.features.tables.controllers;
 
-import io.sovann.hang.api.constants.*;
-import io.sovann.hang.api.features.commons.controllers.*;
-import io.sovann.hang.api.features.commons.payloads.*;
-import io.sovann.hang.api.features.tables.payloads.requests.*;
-import io.sovann.hang.api.features.tables.payloads.responses.*;
-import io.sovann.hang.api.features.tables.services.*;
-import lombok.*;
+import io.sovann.hang.api.annotations.CurrentUser;
+import io.sovann.hang.api.constants.APIURLs;
+import io.sovann.hang.api.features.commons.controllers.ControllerServiceCallback;
+import io.sovann.hang.api.features.commons.payloads.BaseResponse;
+import io.sovann.hang.api.features.commons.payloads.PageMeta;
+import io.sovann.hang.api.features.tables.payloads.requests.CreateTableRequest;
+import io.sovann.hang.api.features.tables.payloads.responses.TableResponse;
+import io.sovann.hang.api.features.tables.services.TableServiceImpl;
+import io.sovann.hang.api.features.users.securities.CustomUserDetails;
+import io.sovann.hang.api.utils.SoftEntityDeletable;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(APIURLs.TABLE)
@@ -21,5 +27,18 @@ public class TableController {
         return callback.execute(() -> tableService.createTable(request),
                 "Table failed to create",
                 null);
+    }
+
+    @GetMapping("/list")
+    public BaseResponse<List<TableResponse>> listTables(
+            @CurrentUser CustomUserDetails user,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        SoftEntityDeletable.throwErrorIfSoftDeleted(user.getUser());
+        PageMeta pageMeta = new PageMeta(page, size, tableService.count());
+        return callback.execute(() -> tableService.listTables(user.getUser(), page, size),
+                "Table failed to list",
+                pageMeta);
     }
 }
