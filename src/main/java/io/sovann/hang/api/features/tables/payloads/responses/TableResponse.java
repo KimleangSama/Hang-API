@@ -20,6 +20,7 @@ public class TableResponse {
     private double basePrice;
     private String status;
     private int capacity;
+    private String qr;
     private Boolean isGrouped = false;
 
     public static TableResponse fromEntity(Table table) {
@@ -31,6 +32,7 @@ public class TableResponse {
         response.setBasePrice(table.getBasePrice());
         response.setStatus(table.getStatus().name());
         response.setCapacity(table.getCapacity());
+        response.setQr(response.getQr());
         response.setIsGrouped(table.getIsGrouped());
         return response;
     }

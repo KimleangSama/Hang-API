@@ -14,6 +14,7 @@ public class CreateTableRequest {
     private double basePrice;
     private int capacity;
     private TableStatus status;
+    private String qr;
     private Boolean isGrouped = false;
 
     public static Table fromRequest(CreateTableRequest request) {
@@ -24,6 +25,7 @@ public class CreateTableRequest {
         table.setBasePrice(request.getBasePrice());
         table.setCapacity(request.getCapacity());
         table.setStatus(request.getStatus());
+        table.setQr(request.getQr());
         table.setIsGrouped(request.getIsGrouped());
         return table;
     }

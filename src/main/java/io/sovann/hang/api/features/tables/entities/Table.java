@@ -32,6 +32,9 @@ public class Table extends BaseEntityAudit {
     private int capacity;
 
     @Column
+    private String qr;
+
+    @Column
     private Boolean isGrouped = false;
     @OneToMany(mappedBy = "table")
     private List<TableGroupMapping> groupMappings;

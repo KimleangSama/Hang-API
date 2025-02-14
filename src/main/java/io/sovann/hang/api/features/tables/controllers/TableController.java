@@ -10,10 +10,9 @@ import io.sovann.hang.api.features.tables.payloads.responses.TableResponse;
 import io.sovann.hang.api.features.tables.services.TableServiceImpl;
 import io.sovann.hang.api.features.users.securities.CustomUserDetails;
 import io.sovann.hang.api.utils.SoftEntityDeletable;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(APIURLs.TABLE)
@@ -40,5 +39,14 @@ public class TableController {
         return callback.execute(() -> tableService.listTables(user.getUser(), page, size),
                 "Table failed to list",
                 pageMeta);
+    }
+
+    @GetMapping("/{id}/get")
+    public BaseResponse<TableResponse> getTableById(
+            @PathVariable UUID id
+    ) {
+        return callback.execute(() -> tableService.getTableById(id),
+                "Table failed to get",
+                null);
     }
 }

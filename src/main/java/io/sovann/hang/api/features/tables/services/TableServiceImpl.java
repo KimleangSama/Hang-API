@@ -1,20 +1,16 @@
 package io.sovann.hang.api.features.tables.services;
 
-import io.sovann.hang.api.features.tables.entities.Table;
-import io.sovann.hang.api.features.tables.payloads.requests.CreateTableRequest;
-import io.sovann.hang.api.features.tables.payloads.responses.TableResponse;
-import io.sovann.hang.api.features.tables.repos.TableRepository;
-import io.sovann.hang.api.features.users.entities.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
+import io.sovann.hang.api.features.tables.entities.*;
+import io.sovann.hang.api.features.tables.payloads.requests.*;
+import io.sovann.hang.api.features.tables.payloads.responses.*;
+import io.sovann.hang.api.features.tables.repos.*;
+import io.sovann.hang.api.features.users.entities.*;
+import java.util.*;
+import lombok.*;
+import org.springframework.cache.annotation.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +42,10 @@ public class TableServiceImpl {
     public List<TableResponse> listTables(User user, int page, int size) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
         return TableResponse.fromEntities(tableRepository.findAll(pageable).getContent());
+    }
+
+    @Cacheable(value = "tables", key = "#id")
+    public TableResponse getTableById(UUID id) {
+        return TableResponse.fromEntity(Objects.requireNonNull(findTableEntityById(id).orElse(null)));
     }
 }
